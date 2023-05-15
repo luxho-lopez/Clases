@@ -90,7 +90,7 @@ function carritoHTML() {
         row.innerHTML = `
             <td>
                 <img src="${Imagen}" width="80">
-            <td>
+            </td>
             <td>${Titulo}</td>
             <td>${Precio}</td>
             <td>${Cantidad}</td>
