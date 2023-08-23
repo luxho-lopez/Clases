@@ -119,6 +119,8 @@ function mostrarClima(data) {
 
 
     resultado.appendChild(resultadoDiv);
+
+    formulario.reset();
 };
 
 
