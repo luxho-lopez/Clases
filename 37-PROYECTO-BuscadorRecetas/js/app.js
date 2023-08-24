@@ -6,6 +6,8 @@ function iniciarApp() {
     
     const resultado = document.querySelector('#resultado');
 
+    const modal = new bootstrap.Modal('#modal');
+
 
     obtenerCategorias();
 
@@ -53,7 +55,7 @@ function iniciarApp() {
             const { idMeal, strMeal, strMealThumb } = receta;
 
             const recetaContenedor = document.createElement('DIV');
-            recetaContenedor.classList.add('col-md-4');
+            recetaContenedor.classList.add('col-md-3');
 
             const recetaCard = document.createElement('DIV');
             recetaCard.classList.add('card', 'md-4');
@@ -73,6 +75,11 @@ function iniciarApp() {
             const recetaButton = document.createElement('BUTTON');
             recetaButton.classList.add('btn', 'btn-danger', 'w-100');
             recetaButton.textContent = "Ver Receta";
+            // recetaButton.dataset.bsTarget = "#modal";
+            // recetaButton.dataset.bsToggle = "modal";
+            recetaButton.onclick = function() {
+                seleccionarReceta(idMeal);
+            }
             
             
             // Inyectar en el HTML
@@ -88,6 +95,33 @@ function iniciarApp() {
 
         })
 
+    }
+
+    function seleccionarReceta(id) {
+        const url = `https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+        // console.log(url);
+        fetch(url)
+            .then(result => result.json())
+            .then(data => mostrarRecetaModal(data.meals[0]))
+    }
+    
+    function mostrarRecetaModal(receta) {
+        console.log(receta);
+        const { idMeal, strMeal, strInstructions, strMealThumb } = receta;
+        
+        // Añadir contenido a modal
+        const modalTitle = document.querySelector('.modal .modal-title');
+        const modalBody = document.querySelector('.modal .modal-body');
+
+        modalTitle.textContent = strMeal;
+        modalBody.innerHTML = `
+            <img class="img-fluid" src="${strMealThumb}" alt="Imagen de receta ${strMeal}">
+            <h3 class="my-3">Instrucciones</h3>
+            <p>${strInstructions}</p>
+        `;
+
+        // Muestra el modal
+        modal.show();
     }
 
     function limpiarHTML(selector) {
