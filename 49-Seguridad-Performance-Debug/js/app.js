@@ -37,6 +37,8 @@ function consultarCriptomonedas() {
 // llena el select 
 function selectCriptomonedas(criptomonedas) {
 
+    
+
     criptomonedas.forEach( cripto => {
         const { FullName, Name } = cripto.CoinInfo;
         const option = document.createElement('option');
